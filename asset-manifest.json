@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/drivers-crud-example/static/css/main.da1d4317.css",
+    "main.js": "/drivers-crud-example/static/js/main.36995b20.js",
+    "static/js/787.016e0049.chunk.js": "/drivers-crud-example/static/js/787.016e0049.chunk.js",
+    "index.html": "/drivers-crud-example/index.html",
+    "main.da1d4317.css.map": "/drivers-crud-example/static/css/main.da1d4317.css.map",
+    "main.36995b20.js.map": "/drivers-crud-example/static/js/main.36995b20.js.map",
+    "787.016e0049.chunk.js.map": "/drivers-crud-example/static/js/787.016e0049.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.da1d4317.css",
+    "static/js/main.36995b20.js"
+  ]
+}
