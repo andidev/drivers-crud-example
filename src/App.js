@@ -36,15 +36,15 @@ function App() {
         <div className="App">
             <AddDriverDialog dialogState={addDriverDialogState} onAddDriver={handleAddDriver} onBack={() => setAddDriverDialogState({ open: false }) }/>
             <ChangeDriverDialog dialogState={changeDriverDialogState} onChangeDriver={handleChangeDriver} onBack={() => setChangeDriverDialogState({ open: false }) }/>
-            <button onClick={(driver) => setAddDriverDialogState({ open: true })}>Add Driver</button>
+            <button onClick={() => setAddDriverDialogState({ open: true })}>Add Driver</button>
             <table>
                 <tr>
                     <th>Id</th>
                     <th>Name</th>
                 </tr>
-                {drivers.map(driver => <Row driver={driver}
-                                            onClickEdit={(driver) => setChangeDriverDialogState({ open: true, driver })}
-                                            onClickRemove={handleRemoveDriver}
+                {drivers.map(driver => <DriverRow driver={driver}
+                                            onClickAdd={(driver) => setChangeDriverDialogState({ open: true, driver })}
+                                            onRemoveDriver={handleRemoveDriver}
                 />)}
             </table>
         </div>
@@ -107,16 +107,16 @@ function ChangeDriverDialog({ dialogState: { open, driver }, onChangeDriver, onB
 }
 
 
-function Row({ driver, onClickEdit, onClickRemove }) {
+function DriverRow({ driver, onClickAdd, onRemoveDriver }) {
     return (
         <tr>
             <td>{driver.id}</td>
             <td>{driver.name}</td>
             <td>
-                <button onClick={() => onClickEdit(driver)}>edit</button>
+                <button onClick={() => onClickAdd(driver)}>edit</button>
             </td>
             <td>
-                <button onClick={() => onClickRemove(driver)}>remove</button>
+                <button onClick={() => onRemoveDriver(driver)}>remove</button>
             </td>
         </tr>
     );
