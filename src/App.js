@@ -1,26 +1,6 @@
 import './App.css';
 import { useEffect, useState } from "react";
 
-let driversInFirebase = [
-    { id: 1, name: 'Jimi', },
-    { id: 2, name: 'Morrisey', },
-    { id: 3, name: 'Doe', },
-];
-
-function createDriverInFirebase(driver) {
-    const nextId = driversInFirebase.length + 1;
-    driversInFirebase.push({ id: nextId, name: driver.name });
-}
-
-function updateDriverInFirebase(driver) {
-    const driverInFirebase = driversInFirebase.find(_driver => _driver.id === driver.id)
-    driverInFirebase.name = driver.name;
-}
-
-function removeDriverInFirebase(driver) {
-    driversInFirebase = driversInFirebase.filter(_driver => _driver.id !== driver.id)
-}
-
 function App() {
 
     const [drivers, setDrivers] = useState([]);
@@ -28,28 +8,28 @@ function App() {
     const [changeDriverDialogState, setChangeDriverDialogState] = useState({ open: false, driver: undefined });
 
     useEffect(() => {
-        loadDriversFromFirebase();
+        loadDrivers();
     }, []);
 
-    const loadDriversFromFirebase = () => {
-        setDrivers(driversInFirebase)
+    const loadDrivers = async () => {
+        setDrivers(await loadDriversFromFirebase())
     }
 
-    const handleAddDriver = (driver) => {
-        createDriverInFirebase(driver)// store new driver in firebase
+    const handleAddDriver = async (driver) => {
+        await createDriverInFirebase(driver)// store new driver in firebase
         setAddDriverDialogState({ open: false });
-        loadDriversFromFirebase(); // reload data
+        await loadDrivers(); // reload data
     }
 
-    const handleChangeDriver = (driver) => {
-        updateDriverInFirebase(driver); // store changes to existing driver to firebase
+    const handleChangeDriver = async (driver) => {
+        await updateDriverInFirebase(driver); // store changes to existing driver to firebase
         setChangeDriverDialogState({ open: false });
-        loadDriversFromFirebase(); // reload data
+        await loadDrivers(); // reload data
     }
 
-    const handleRemoveDriver = (driver) => {
-        removeDriverInFirebase(driver); // store changes to existing driver to firebase
-        loadDriversFromFirebase(); // reload data
+    const handleRemoveDriver = async (driver) => {
+        await removeDriverInFirebase(driver); // store changes to existing driver to firebase
+        await loadDrivers(); // reload data
     }
 
     return (
@@ -140,6 +120,33 @@ function Row({ driver, onClickEdit, onClickRemove }) {
             </td>
         </tr>
     );
+}
+
+let driversInFirebase = [
+    { id: 1, name: 'Jimi', },
+    { id: 2, name: 'Morrisey', },
+    { id: 3, name: 'Doe', },
+];
+
+async function loadDriversFromFirebase() {
+    return Promise.resolve(driversInFirebase); // Promise resolve is to fake async call to firebase here
+}
+
+async function createDriverInFirebase(driver) {
+    const nextId = driversInFirebase.length + 1;
+    driversInFirebase.push({ id: nextId, name: driver.name });
+    return Promise.resolve(); // Promise resolve is to fake async call to firebase here
+}
+
+async function updateDriverInFirebase(driver) {
+    const driverInFirebase = driversInFirebase.find(_driver => _driver.id === driver.id)
+    driverInFirebase.name = driver.name;
+    return Promise.resolve(); // Promise resolve is to fake async call to firebase here
+}
+
+async function removeDriverInFirebase(driver) {
+    driversInFirebase = driversInFirebase.filter(_driver => _driver.id !== driver.id)
+    return Promise.resolve(); // Promise resolve is to fake async call to firebase here
 }
 
 export default App;
